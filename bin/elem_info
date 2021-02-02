@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/elem_info"
+
+ElemInfo::CLI.new
