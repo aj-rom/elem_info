@@ -1,8 +1,7 @@
 # ElemInfo
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/elem_info`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to ElemInfo! ( a.k.a Element Information )
+A scraping library that is used to gather information on all known elements from different websites and let you explore details on them and get all of their information.
 
 ## Installation
 
