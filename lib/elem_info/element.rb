@@ -21,18 +21,20 @@ module ElemInfo
     end
 
     def self.all
-      @all
+      @@all
     end
 
     def self.all_from_ptable_doc(doc)
-      doc.each { |e| from_ptable_element(e) }
+      doc.each do |e|
+        from_ptable_element(e) unless e.attributes.length == 0
+      end
     end
 
     def self.from_ptable_element(e)
       an = e.css("b").text
       aw = e.css("data").text
-      n = e.css("em")
-      s = e.css("abbr")
+      n = e.css("em").text
+      s = e.css("abbr").text
       new(n, an, aw, s)
     end
 
