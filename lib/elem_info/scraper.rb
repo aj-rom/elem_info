@@ -1,0 +1,3 @@
+class ElemInfo::Scraper
+
+end

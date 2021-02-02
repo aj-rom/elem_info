@@ -1,0 +1,3 @@
+class ElemInfo::CLI
+
+end
