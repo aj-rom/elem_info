@@ -18,7 +18,13 @@ module ElemInfo
     end
 
     def display_all_elements
-      Element.all.each_with_index { |e, i| puts `#{i + 1}`.white + e.name.blue }
+      puts 'Here are all of the currently known elements sorted by atomic number:'.yellow
+      map = Element.all.map do |e|
+        num = e.atomic_number
+        name = e.name.red
+        "#{num.white}) #{name}#{(num.to_i % 7).zero? ? "\n" : ', '}"
+      end
+      puts map.uniq.join
     end
 
     def execute_command_from_input(input)
@@ -27,6 +33,7 @@ module ElemInfo
 
     def print_welcome
       puts 'Welcome to'.yellow + ' ElemInfo'.blue + ' ( Element Information )'.yellow
+      puts "\n"
     end
 
     def prompt(question)
