@@ -22,7 +22,7 @@ module ElemInfo
       map = Element.all.map do |e|
         num = e.atomic_number
         name = e.name.red
-        "#{num.white}) #{name}#{(num.to_i % 7).zero? ? "\n" : ', '}"
+        "#{num.white}. #{name} (#{e.symbol.blue})#{(num.to_i % 7).zero? ? "\n" : ', '}"
       end
       puts map.uniq.join
     end

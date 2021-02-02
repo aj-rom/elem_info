@@ -14,7 +14,7 @@ module ElemInfo
     end
 
     def load_elements
-      Element.all_from_ptable_doc(@doc.css("ol li"))
+      Element.all_from_table_doc(@doc.css("ol li"))
     end
 
   end
