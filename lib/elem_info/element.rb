@@ -4,26 +4,16 @@ module ElemInfo
 
   # Holds basic element information and has some class methods to find other useful information
   class Element
-    attr_reader :name, :atomic_number, :atomic_weight, :symbol, :etymolygy, :group, :period, :melting_point,
-    :boiling_point, :density, :heat_cap, :electro_negativity, :abundance
+    attr_reader :name, :atomic_number, :symbol, :properties
 
     @@all = []
 
-    def initialize(name, symbol, etymolygy, atomic_number, atomic_weight, group, period,
-                   density, melting_point, boiling_point, heat_cap, electro_negativity, abundance)
+    def initialize(name, symbol, atomic_number, properties)
       @name = name
       @symbol = symbol
-      @etymolygy = etymolygy
       @atomic_number = atomic_number
-      @atomic_weight = atomic_weight
-      @group = group
-      @period = period
-      @density = density
-      @melting_point = melting_point
-      @boiling_point = boiling_point
-      @heat_cap = heat_cap
-      @electro_negativity = electro_negativity
-      @abundance = abundance
+      @properties = properties
+
     end
 
     def save
@@ -31,13 +21,8 @@ module ElemInfo
     end
 
     def display
-      puts "#{name} - #{symbol} : #{etymolygy}"
-      puts "Atomic Number: #{atomic_number}, Atomic Weight: #{atomic_weight} Da"
-      puts "Density: #{density} (g / cm^3)"
-      puts "Group: #{@group}, Period: #{period}"
-      puts "Melting Point: #{melting_point} K,  Boiling Point: #{boiling_point} K"
-      puts "Heat Capacity: #{heat_cap} (J / g * K), Electro-Negativity: #{electro_negativity}"
-      puts "Abundance in Earth's Crust: #{abundance} (mg / kg)"
+      puts "#{name} - #{symbol}"
+      properties.display
     end
 
     def protons
@@ -60,29 +45,11 @@ module ElemInfo
       atomic_n = elem[0].text.strip.to_i
       symbol = elem[1].text.strip
       name = elem[2].text.strip
-      etym = elem[3].text.strip
-      group = elem[4].text.strip.to_i
-      period = elem[5].text.strip.to_i
-      atomic_w = fix_digit(elem[6])
-      density = fix_digit(elem[7])
-      melting = fix_digit(elem[8])
-      boiling = fix_digit(elem[9])
-      heat_cap = fix_digit(elem[10])
-      elec_neg = fix_digit(elem[11])
-      abundance = fix_digit(elem[12])
-
-      new(name, symbol, etym, atomic_n, atomic_w, group, period, density, melting,
-          boiling, heat_cap, elec_neg, abundance).save
+      props = Properties.from_row(elem)
+      new(name, symbol, atomic_n, props).save
     end
 
-    def self.fix_digit(str)
-      str = str.text.strip
-      if str == "–"
-        return "N/A"
-      end
 
-      str.tr("^0-9.", "").to_i
-    end
 
     def self.get_from_name(name)
       all.detect { |e| e.name.casecmp?(name) }
