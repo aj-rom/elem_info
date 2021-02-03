@@ -21,7 +21,7 @@ module ElemInfo
     end
 
     def display
-      puts "#{name} - #{symbol}"
+      puts "#{name.blue} ( #{symbol.yellow} )"
       properties.display
     end
 
@@ -49,8 +49,6 @@ module ElemInfo
       new(name, symbol, atomic_n, props).save
     end
 
-
-
     def self.get_from_name(name)
       all.detect { |e| e.name.casecmp?(name) }
     end
@@ -60,7 +58,15 @@ module ElemInfo
     end
 
     def self.get_from_atomic_number(num)
-      all.detect { |e| e.atomic_number.casecmp?(num) }
+      all.detect { |e| e.atomic_number == num.to_i }
+    end
+
+    def self.get_from_any(e)
+      if e.to_i > 0
+        get_from_atomic_number(e)
+      else
+        e.length < 3 ? get_from_symbol(e) : get_from_name(name)
+      end
     end
 
   end
