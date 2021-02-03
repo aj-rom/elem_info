@@ -30,6 +30,16 @@ module ElemInfo
       @@all << self
     end
 
+    def display
+      puts "#{name} - #{symbol} : #{etymolygy}"
+      puts "Atomic Number: #{atomic_number}, Atomic Weight: #{atomic_weight} Da"
+      puts "Density: #{density} (g / cm^3)"
+      puts "Group: #{@group}, Period: #{period}"
+      puts "Melting Point: #{melting_point} K,  Boiling Point: #{boiling_point} K"
+      puts "Heat Capacity: #{heat_cap} (J / g * K), Electro-Negativity: #{electro_negativity}"
+      puts "Abundance in Earth's Crust: #{abundance} (mg / kg)"
+    end
+
     def protons
       atomic_number
     end
@@ -46,11 +56,10 @@ module ElemInfo
 
     def self.from_table_element(e)
       elem = e.css("td")
-      puts "#{elem}"
+
       atomic_n = elem[0].text.strip.to_i
       symbol = elem[1].text.strip
       name = elem[2].text.strip
-      puts "#{name}"
       etym = elem[3].text.strip
       group = elem[4].text.strip.to_i
       period = elem[5].text.strip.to_i
