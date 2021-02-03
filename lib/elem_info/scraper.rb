@@ -5,7 +5,7 @@ require 'open-uri'
 
 module ElemInfo
 
-  # Used for scraping element properties from ptable.com
+  # Used for scraping element properties
   class Scraper
 
     def initialize
