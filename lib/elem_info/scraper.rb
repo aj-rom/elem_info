@@ -9,12 +9,20 @@ module ElemInfo
   class Scraper
 
     def initialize
-      @doc = Nokogiri::HTML(URI.open('https://ptable.com/#'))
+      @doc = Nokogiri::HTML(URI.open('https://en.wikipedia.org/wiki/List_of_chemical_elements'))
       load_elements
     end
 
     def load_elements
-      Element.all_from_table_doc(@doc.css("ol li"))
+      table = @doc.css("table.wikitable tbody tr")
+
+      # skip the header elements
+      4.times { table.shift }
+
+      # remove footer
+      table.pop
+
+      Element.all_from_table_doc(table)
     end
 
   end
