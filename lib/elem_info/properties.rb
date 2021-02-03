@@ -7,13 +7,16 @@ module ElemInfo
     attr_accessor :atomic_weight, :etymology, :group, :period, :melting_point,
                   :boiling_point, :density, :heat_capacity, :electronegativity, :abundance
     def display
-      puts "Etymology: #{etymology}"
-      puts "Atomic Weight: #{atomic_weight} Da"
-      puts "Density: #{density} (g / cm^3)"
-      puts "Group: #{@group}, Period: #{period}"
-      puts "Melting Point: #{melting_point} K,  Boiling Point: #{boiling_point} K"
-      puts "Heat Capacity: #{heat_capacity} (J / g * K), Electro-Negativity: #{electronegativity}"
-      puts "Abundance in Earth's Crust: #{abundance} (mg / kg)"
+      puts "#{"Etymology".blue}: #{etymology.yellow}"
+      puts "#{"Atomic Weight".blue}: #{atomic_weight.to_s.yellow} Da"
+      puts "#{"Density".blue}: #{density.to_s.yellow} (g / cm^3)"
+      puts "#{"Group".blue}: #{@group.to_s.yellow}"
+      puts "#{"Period".blue}: #{period.to_s.yellow}"
+      puts "#{"Melting Point".blue}: #{melting_point.to_s.yellow} K"
+      puts "#{"Boiling Point".blue}: #{boiling_point.to_s.yellow} K"
+      puts "#{"Heat Capacity".blue}: #{heat_capacity.to_s.yellow} (J / g * K)"
+      puts "#{"Electronegativity".blue}: #{electronegativity.to_s.yellow}"
+      puts "#{"Abundance in Earth's Crust".blue}: #{abundance.to_s.yellow} (mg / kg)"
     end
 
     def self.from_row(elem)
@@ -34,12 +37,8 @@ module ElemInfo
     end
 
     def self.fix_digit(str)
-      str = str.text.strip
-      if str == "–"
-        return "N/A"
-      end
-
-      str.tr("^0-9.", "").to_i
+      i = str.text.strip.tr("^0-9.", "").to_f
+      i > 0 ? i : "N/A"
     end
 
   end
