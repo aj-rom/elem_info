@@ -5,6 +5,7 @@ module ElemInfo
   # Holds basic element information and has some class methods to find other useful information
   class Element
     attr_reader :name, :atomic_number, :symbol, :properties
+    attr_accessor :description
 
     @@all = []
 
@@ -13,7 +14,6 @@ module ElemInfo
       @symbol = symbol
       @atomic_number = atomic_number
       @properties = properties
-
     end
 
     def save
@@ -23,6 +23,12 @@ module ElemInfo
     def display
       puts "#{name.blue} ( #{symbol.yellow} )"
       properties.display
+
+      unless description
+        Scraper.add_description(self)
+      end
+
+      puts "#{"Summary".blue}: #{description}"
     end
 
     def protons
