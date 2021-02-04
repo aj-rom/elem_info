@@ -8,13 +8,9 @@ module ElemInfo
   # Used for scraping element properties
   class Scraper
 
-    def initialize
-      @doc = Nokogiri::HTML(URI.open('https://en.wikipedia.org/wiki/List_of_chemical_elements'))
-      load_elements
-    end
-
-    def load_elements
-      table = @doc.css("table.wikitable tbody tr")
+    def self.load_elements
+      doc = self.get_page('https://en.wikipedia.org/wiki/List_of_chemical_elements')
+      table = doc.css("table.wikitable tbody tr")
 
       # skip the header elements
       4.times { table.shift }
@@ -23,6 +19,17 @@ module ElemInfo
       table.pop
 
       Element.all_from_table_doc(table)
+    end
+
+    def self.add_description(elem)
+      doc = self.get_page("https://en.wikipedia.org/wiki/#{elem.name}")
+      description = doc.css("table.infobox")[0].next_element.text.strip
+
+      elem.description = description.gsub(/(\[*\d\])/, "")
+    end
+
+    def self.get_page(url)
+      Nokogiri::HTML(URI.open(url))
     end
 
   end
