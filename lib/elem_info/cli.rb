@@ -49,7 +49,6 @@ module ElemInfo
 
     def print_welcome
       puts 'Welcome to'.yellow + ' ElemInfo'.blue + ' ( Element Information )'.yellow
-      puts "\n"
     end
 
     def prompt_to_sort
