@@ -1,11 +1,11 @@
-require 'nokogiri'
-require 'open-uri'
+# frozen_string_literal: true
 
 module ElemInfo
 
+  # The Compound class for creating new chemical compounds
   class Compound
     attr_accessor :makeup
-    attr_reader :name, :molar_mass, :elements
+    attr_reader :elements
 
     @@all = []
 
@@ -24,28 +24,34 @@ module ElemInfo
     end
 
     def display
-      puts "#{"Compound:".blue} #{name.yellow}"
+      puts "#{'Compound'.blue}: #{name.yellow}"
+      puts "#{'Total Mass'.blue}: #{total_mass} Da"
       @elements.each do |e|
         sym = e.symbol
         puts " #{e.name.blue} (#{sym.blue}) "
-        puts "  #{"Atoms".blue}: #{get_num_atoms(sym)}"
-        puts "  #{"Atomic Weight".blue}: #{e.properties.atomic_weight} Da"
-        puts "  #{"Percent Mass".blue}: #{get_mass_percent_of(sym).round(4)}%"
+        puts "  #{'Atoms'.blue}: #{get_num_atoms(sym)}"
+        puts "  #{'Atomic Weight'.blue}: #{e.properties.atomic_weight} Da"
+        puts "  #{'Percent Mass'.blue}: #{get_mass_percent_of(sym).round(4)}%"
       end
     end
 
-    def calculate
-      total_mass = 0.0
+    def total_mass
+      @total_mass = 0.0
       @makeup.each do |sym, v|
-        total_mass += "#{v[:weight] * v[:amount]}".to_f
+        @total_mass += (v[:weight] * v[:amount]).to_f
       end
 
+      @total_mass
+    end
+
+    def calculate
+      t_mass = total_mass
       @makeup.each do |sym, v|
         mass = @makeup[sym][:mass]
-        set_mass_percent_of(sym, (mass / total_mass) * 100)
+        set_mass_percent_of(sym, (mass / t_mass) * 100)
       end
 
-      total_mass
+      t_mass
     end
 
     def get_num_atoms(sym)
