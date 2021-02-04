@@ -11,13 +11,15 @@ module ElemInfo
       print_welcome
       load_all_elements
       display_all_elements
-      prompt_to_create_compound
+      prompt_choose_element
     end
 
+    # move to elements class?
     def load_all_elements
-      Scraper.new.load_elements
+      Scraper.load_elements
     end
 
+    # move to elements class
     def display_all_elements
       puts 'Here are all of the currently known elements sorted by atomic number:'.yellow
       map = Element.all.map do |e|
