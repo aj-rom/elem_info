@@ -24,11 +24,9 @@ module ElemInfo
       puts "#{name.blue} ( #{symbol.yellow} )"
       properties.display
 
-      unless description
-        Scraper.add_description(self)
-      end
+      Scraper.add_description(self) unless description
 
-      puts "#{"Summary".blue}: #{description}"
+      puts "#{'Summary'.blue}: #{description}"
     end
 
     def self.all
@@ -42,7 +40,7 @@ module ElemInfo
     end
 
     def self.from_table_element(e)
-      elem = e.css("td")
+      elem = e.css('td')
 
       atomic_n = elem[0].text.strip.to_i
       symbol = elem[1].text.strip
@@ -64,7 +62,7 @@ module ElemInfo
     end
 
     def self.get_from_any(e)
-      if e.to_i > 0
+      if e.to_i.positive?
         get_from_atomic_number(e)
       else
         e.length < 3 ? get_from_symbol(e) : get_from_name(e)
@@ -72,28 +70,28 @@ module ElemInfo
     end
 
     def self.display_all
-      puts "Here are all of the currently known elements in order of atomic number:".yellow
+      puts 'Here are all of the currently known elements in order of atomic number:'.yellow
       display_elements(all)
     end
 
     def self.display_by_group(group)
-      puts "#{"Group".blue}: #{group}"
+      puts "#{'Group'.blue}: #{group}"
       display_elements(get_by_group(group))
     end
 
     def self.display_by_period(period)
-      puts "#{"Period".blue}: #{period}"
+      puts "#{'Period'.blue}: #{period}"
       display_elements(get_by_period(period))
     end
 
     def self.display_by_weight
-      puts "Here are all of the elements sorted by Atomic Weight:".yellow
-      puts sort_by_weight.map { |e| "#{e.name.red} (#{e.properties.atomic_weight.round(4).to_s.blue})"}.join(", ")
+      puts 'Here are all of the elements sorted by Atomic Weight:'.yellow
+      puts sort_by_weight.map { |e| "#{e.name.red} (#{e.properties.atomic_weight.round(4).to_s.blue})"}.join(', ')
     end
 
     def self.display_by_name
-      puts "Here are all of the elements sorted by name:".yellow
-      puts sort_by_name.map { |e| "#{e.name.red} (#{e.symbol.blue})"}.join(", ")
+      puts 'Here are all of the elements sorted by name:'.yellow
+      puts sort_by_name.map { |e| "#{e.name.red} (#{e.symbol.blue})"}.join(', ')
     end
 
     def self.display_elements(elems)
