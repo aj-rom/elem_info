@@ -105,10 +105,9 @@ module ElemInfo
 
     def prompt_amount_to_add(compound, element)
       amt = prompt("How many #{element.name} atoms should we add to the compound?").to_i
-
       prompt_amount_to_add(compound, element) unless amt.positive?
 
-      compound.add_element(element, amt)
+      compound.add_element(element, amt) if amt.positive?
     end
 
     def prompt_choose_element
