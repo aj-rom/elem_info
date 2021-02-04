@@ -102,7 +102,7 @@ module ElemInfo
 
       x = prompt("Would you like to add another element? (Y / N)").downcase
 
-      x.start_with?("y") ? prompt_add_element_to_compound(compound) : compound.calculate_and_display
+      x[0] == 'y' ? prompt_add_element_to_compound(compound) : compound.calculate_and_display
     end
 
     def prompt_amount_to_add(compound, element)
@@ -119,14 +119,11 @@ module ElemInfo
       x = prompt("Please enter an element you would like to view more on: (Symbol, Name, or Atomic Number)")
 
       found = Element.get_from_any(x)
-
-      if !found
+      unless found
         prompt_choose_element
-      else
-        found.display
-        puts ""
       end
 
+      found.display
     end
 
     def prompt(question)
