@@ -26,6 +26,8 @@ module ElemInfo
       description = doc.css("table.infobox")[0].next_element.text.strip
 
       elem.description = description.gsub(/(\[*\d\])/, "")
+
+      # possibly add values in which the elements properties are N/A
     end
 
     def self.get_page(url)
