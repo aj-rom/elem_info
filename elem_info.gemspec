@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['ajiellodev@gmail.com']
 
   spec.summary       = 'Gathers info from ptable.com to make access to elements and their data easily accessible.'
-  spec.homepage      = 'http://www.github.com/CoachLuck'
+  spec.homepage      = 'http://www.github.com/CoachLuck/elem_info'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
     spec.metadata['allowed_push_host'] = 'http://mygemserver.com'
 
     spec.metadata['homepage_uri'] = spec.homepage
-    spec.metadata['source_code_uri'] = 'http://www.github.com/CoachLuck'
-    spec.metadata['changelog_uri'] = 'http://www.github.com/CoachLuck'
+    spec.metadata['source_code_uri'] = 'http://www.github.com/CoachLuck/elem_info'
+    spec.metadata['changelog_uri'] = 'http://www.github.com/CoachLuck/elem_info'
   else
     raise 'RubyGems 2.0 or newer is required to protect against ' \
       'public gem pushes.'
@@ -37,6 +37,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rake'
-  spec.add_dependency 'nokogiri'
   spec.add_dependency 'colorize'
+  spec.add_dependency 'nokogiri'
 end
