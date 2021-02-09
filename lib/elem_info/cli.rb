@@ -63,9 +63,9 @@ module ElemInfo
       when 'n'
         Element.display_by_name
       when 'g'
-        prompt_sort_by_group
+        prompt_sort_by(18, 'group')
       when 'p'
-        prompt_sort_by_period
+        prompt_sort_by(7, 'period')
       when 'w'
         Element.display_by_weight
       else
@@ -73,16 +73,10 @@ module ElemInfo
       end
     end
 
-    def prompt_sort_by_group
-      x = prompt('Please enter the number of the group to sort by:').to_i
+    def prompt_sort_by(bound, str)
+      x = prompt("Please enter the number of the #{str} to sort by:").to_i
 
-      x < 1 || x > 18 ? prompt_sort_by_group : Element.display_by_group(x)
-    end
-
-    def prompt_sort_by_period
-      x = prompt('Please enter the number of the group to sort by:').to_i
-
-      x < 1 || x > 7 ? prompt_sort_by_group : Element.display_by_period(x)
+      x < 1 || x > bound ? prompt_sort_by(bound, str) : Element.send("display_by_#{str}", x)
     end
 
     def prompt_to_create_compound
