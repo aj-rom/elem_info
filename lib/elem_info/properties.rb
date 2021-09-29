@@ -6,6 +6,7 @@ module ElemInfo
   class Properties
     attr_accessor :atomic_weight, :etymology, :group, :period, :melting_point,
                   :boiling_point, :density, :heat_capacity, :electronegativity, :abundance
+
     def display
       puts "#{"Etymology".blue}: #{etymology.yellow}"
       puts "#{"Atomic Weight".blue}: #{atomic_weight.to_s.yellow} Da"
@@ -37,8 +38,8 @@ module ElemInfo
     end
 
     def self.fix_digit(str)
-      i = str.text.strip.tr("^0-9.", "").to_f
-      i > 0 ? i : "N/A"
+      i = str.text.strip.tr('^0-9.', '').to_f
+      i.positive? ? i : 'N/A'
     end
 
   end

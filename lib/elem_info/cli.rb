@@ -22,7 +22,7 @@ module ElemInfo
     end
 
     def start
-      x = prompt('What would you like to do? (Sort, Inspect, Compound, Exit)').downcase
+      x = prompt 'What would you like to do? (Sort, Inspect, Compound, Exit)' .downcase
 
       execute_command(x)
     end
@@ -53,7 +53,7 @@ module ElemInfo
     end
 
     def prompt_to_sort
-      x = prompt('How would you like to sort by? (Name, Group, Period, Weight)').downcase
+      x = prompt 'How would you like to sort by? (Name, Group, Period, Weight)' .downcase
 
       display_sort(x)
     end
@@ -74,7 +74,7 @@ module ElemInfo
     end
 
     def prompt_sort_by(bound, str)
-      x = prompt("Please enter the number of the #{str} to sort by:").to_i
+      x = prompt "Please enter the number of the #{str} to sort by:" .to_i
 
       x < 1 || x > bound ? prompt_sort_by(bound, str) : Element.send("display_by_#{str}", x)
     end
@@ -85,27 +85,27 @@ module ElemInfo
     end
 
     def prompt_add_element_to_compound(compound)
-      x = prompt('Please enter the name, symbol, or atomic number of the Element you would like to add to your compound:')
+      x = prompt 'Please enter the name, symbol, or atomic number of the Element you would like to add to your compound:'
       found = Element.get_from_any(x)
 
       prompt_add_element_to_compound(compound) unless found
 
       prompt_amount_to_add(compound, found)
 
-      x = prompt('Would you like to add another element? (Y / N)').downcase
+      x = prompt 'Would you like to add another element? (Y / N)' .downcase
 
       x[0] == 'y' ? prompt_add_element_to_compound(compound) : compound.calculate_and_display
     end
 
     def prompt_amount_to_add(compound, element)
-      amt = prompt("How many #{element.name} atoms should we add to the compound?").to_i
+      amt = prompt "How many #{element.name} atoms should we add to the compound?" .to_i
       prompt_amount_to_add(compound, element) unless amt.positive?
 
       compound.add_element(element, amt) if amt.positive?
     end
 
     def prompt_choose_element
-      x = prompt('Please enter an element you would like to view more on: (Symbol, Name, or Atomic Number)')
+      x = prompt 'Please enter an element you would like to view more on: (Symbol, Name, or Atomic Number)'
 
       found = Element.get_from_any(x)
       prompt_choose_element unless found

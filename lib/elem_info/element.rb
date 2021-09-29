@@ -76,12 +76,12 @@ module ElemInfo
 
     def self.display_by_group(group)
       puts "#{'Group'.blue}: #{group}"
-      display_elements(get_by_group(group))
+      display_elements get_by_group group
     end
 
     def self.display_by_period(period)
       puts "#{'Period'.blue}: #{period}"
-      display_elements(get_by_period(period))
+      display_elements get_by_period period
     end
 
     def self.display_by_weight
